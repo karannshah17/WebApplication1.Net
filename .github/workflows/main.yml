@@ -18,7 +18,10 @@ jobs:
      
     - name: Setup NuGet.exe for use with actions 
       uses: NuGet/setup-nuget@v1.0.5
- 
+      
+    - name: Restore Nuget
+      run: nuget restore WebApplication1.sln
+      
     - name: Build and Publish Web App
       run: msbuild WebApplication1.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
  
