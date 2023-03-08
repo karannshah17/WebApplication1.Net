@@ -11,14 +11,15 @@ jobs:
     - uses: actions/checkout@v1
       name: Checkout Code
      
-    - name: Setup MSBuild Path
-      uses: warrenbuckley/Setup-MSBuild@v1
+     
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.1
        
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.2
      
     - name: Restore NuGet Packages
-      run: nuget restore SimpleFrameworkApp.sln
+      run: nuget restore WebApplication1.sln
  
     - name: Build and Publish Web App
       run: msbuild WebApplication1.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
