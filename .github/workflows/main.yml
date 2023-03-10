@@ -31,5 +31,6 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa 176.198.197.180 >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa 2a02:908:13c1:74e0:25fd:b720:e602:2215 >> ~/.ssh/known_hosts
           scp -r bin/Release 01qq9ad6s0cb2\administrator@176.198.197.180:/H:\ML
      
