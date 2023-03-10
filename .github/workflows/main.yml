@@ -25,3 +25,11 @@ jobs:
     - name: Build Solution
       run: msbuild WebApplication1.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishUrl="bin\Release\Publish"
      
+    - name: Transfer files to local system
+      run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa 176.198.197.180 >> ~/.ssh/known_hosts
+          scp -r bin/Release 01qq9ad6s0cb2\administrator@176.198.197.180:/H:\ML
+     
