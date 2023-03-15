@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
  
-    runs-on: windows-latest
+    runs-on: self-hosted
  
     steps:
     - uses: actions/checkout@v1
@@ -25,12 +25,9 @@ jobs:
     - name: Build Solution
       run: msbuild WebApplication1.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishUrl="bin\Release\Publish"
      
-    - name: Transfer files to local system
-      run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa 176.198.197.180 >> ~/.ssh/known_hosts
-          ssh-keyscan -t rsa 2a02:908:13c1:74e0:25fd:b720:e602:2215 >> ~/.ssh/known_hosts
-          scp -r bin/Release 01qq9ad6s0cb2\administrator@176.198.197.180:/H:\ML
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: published_webapp
+        path: H:\deploy
      
